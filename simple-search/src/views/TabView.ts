@@ -1,4 +1,5 @@
 import View from "./View";
+import "./TabView.scss";
 
 interface IEl {
   mount(): void;

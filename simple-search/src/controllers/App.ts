@@ -1,4 +1,6 @@
 import TabView from "../views/TabView";
+
+import KeywordModel from "../models/KeywordModel.js";
 export default class App {
   selectedTab: string;
   tabView: any;
@@ -31,14 +33,18 @@ export default class App {
   // onSearchTab() {}
 
   onChangeTab(tabName: string) {
-    console.log("2");
     this.selectedTab = tabName;
     this.renderView();
   }
 
   renderView() {
-    console.log("3");
     this.tabView.setActiveTab(this.selectedTab);
+    const isRecommendKeyword = this.selectedTab === "추천 검색어";
+    if (isRecommendKeyword) {
+      const data = KeywordModel.list();
+    } else {
+      //
+    }
   }
 
   // onRemoveHistory() {}
