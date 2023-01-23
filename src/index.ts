@@ -10,6 +10,18 @@ const initApp = (): void => {
   const itemForm = document.getElementById('itemForm') as HTMLFormElement;
   itemForm.addEventListener('submit', (event: SubmitEvent): void => {
     event.preventDefault();
+
+    const input = document.getElementById('newItem') as HTMLInputElement;
+    const text: string = input.value.trim();
+    if (!text) return;
+
+    const itemId: number = list.list.length
+      ? parseInt(list.list[list.list.length - 1].id) + 1
+      : 1;
+
+    const newItem = new ListItem(itemId.toString(), text);
+    list.addItem(newItem);
+    template.render(list);
   });
 
   const clearItems = document.getElementById(
