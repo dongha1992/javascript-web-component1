@@ -1,6 +1,6 @@
 import './index.scss';
-import Test from './components/Test';
+import App from './components/App';
 
 document.addEventListener('DOMContentLoaded', () => {
-  new Test();
+  new App(document.querySelector('#app') as HTMLDivElement);
 });
