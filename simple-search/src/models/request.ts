@@ -14,7 +14,7 @@ export default async function request({
   url: string;
   data?: object[];
   headers?: AxiosRequestHeaders;
-}): Promise<void> {
+}): Promise<any[]> {
   const result = await axios({
     method,
     url,

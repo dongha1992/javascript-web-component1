@@ -5,6 +5,7 @@ const path = require("path");
 const app = express();
 app.use(morgan("dev"));
 
+app.use(express.static(path.join(__dirname, "../dist")));
 const port = process.env.PORT || 8081;
 
 const keywords = [
@@ -39,6 +40,45 @@ let history = [
   { keyword: "검색기록1", date: "12.02" },
   { keyword: "검색기록0", date: "12.01" }
 ];
+
+app.get("/api/keywords", (req, res) => {
+  // res.header("Access-Control-Allow-Origin", "*");
+  res.json(keywords);
+});
+
+app.get("/api/history", (req, res) => {
+  res.json(history);
+});
+
+
+app.post("/api/history", (req, res) => {
+  keyword = (req.query.keyword || "").trim();
+  if (!keyword) return;
+
+  history.filter(item => item.keyword !== keyword);
+
+  history = [
+    { keyword, date: "12.31" },
+    ...history.filter(item => item.keyword !== keyword)
+  ];
+
+  res.json(history);
+});
+
+app.delete("/api/history", (req, res) => {
+  const keyword = (req.query.keyword || "").trim();
+
+  history = history.filter(item => item.keyword !== keyword);
+  res.json(history);
+});
+
+app.get("/api/search", (req, res) => {
+  res.json(search);
+});
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../dist/index.html"));
+});
 
 
 app.listen(port, () => {

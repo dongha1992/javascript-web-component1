@@ -24,7 +24,10 @@ module.exports = {
   },
   devServer: {
     hot: true,
-    open: true
+    open: true,
+    proxy: {
+      "/api": "http://localhost:8081"
+    },
   },
   module: {
     rules: [

@@ -1,9 +1,15 @@
-import TabView from "../views/TabView";
+import TabView, { ITabView } from "../views/TabView";
+import KeywordView, { IKeywordView } from "../views/KeywordView";
 
-import KeywordModel from "../models/KeywordModel.js";
+import KeywordModel from "../models/KeywordModel";
+
+export interface IList {
+  keyword: string;
+}
 export default class App {
   selectedTab: string;
-  tabView: any;
+  tabView: ITabView;
+  keywordView: IKeywordView;
 
   constructor() {
     const formViewEl = document.querySelector("form") as HTMLFormElement;
@@ -19,16 +25,22 @@ export default class App {
     ) as HTMLDivElement;
 
     this.tabView = new TabView(tabViewEl).on("@change", (e: CustomEvent) => {
-      console.log("1");
       this.onChangeTab(e.detail.tabName);
     });
 
-    this.selectedTab = "추천 검색어";
+    this.keywordView = new KeywordView(keywordViewEl).on(
+      "@click",
+      (e: CustomEvent) => this.search(e.detail.keyword)
+    );
 
+    this.selectedTab = "추천 검색어";
     this.renderView();
   }
 
-  // search() {}
+  async search(query: string) {
+    //
+  }
+
   // onSearchResult() {}
   // onSearchTab() {}
 
@@ -37,11 +49,12 @@ export default class App {
     this.renderView();
   }
 
-  renderView() {
+  async renderView() {
     this.tabView.setActiveTab(this.selectedTab);
     const isRecommendKeyword = this.selectedTab === "추천 검색어";
     if (isRecommendKeyword) {
-      const data = KeywordModel.list();
+      const data: IList[] = await KeywordModel.list();
+      this.keywordView.mount(data);
     } else {
       //
     }

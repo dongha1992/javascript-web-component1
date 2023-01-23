@@ -1,14 +1,14 @@
 import View from "./View";
 import "./TabView.scss";
 
-interface IEl {
+export interface ITabView {
   mount(): void;
   bindEvents(): void;
   onClick(tabName: string): void;
   setActiveTab(tabName: string): void;
 }
 
-export default class TabView extends View implements IEl {
+export default class TabView extends View implements ITabView {
   constructor(el: HTMLElement) {
     super(el);
 
