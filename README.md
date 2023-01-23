@@ -1,6 +1,6 @@
-# boiler-plate
+# web component 1
 
-- 프론트엔드 개발 보일러 플레이트
+- 바닐라 자바스크립트 간단 컴포넌트 만들기
 
 아래의 스택을 사용함
 - Webpack5
