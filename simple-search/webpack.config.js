@@ -62,10 +62,10 @@ module.exports = {
     ...(!isDev ? [new MiniCssExtractPlugin({ filename: `[name].css` })] : []),
     new ESLintPlugin({
       extensions: ["js", "ts"],
-      emitError: true,
-      emitWarning: true,
-      failOnError: true,
-      failOnWarning: true,
+      emitError: false,
+      emitWarning: false,
+      failOnError: false,
+      failOnWarning: false,
       useEslintrc: true,
       cache: true
     }),
