@@ -1,8 +1,9 @@
 import TabView, { ITabView } from "../views/TabView";
 import KeywordView, { IKeywordView } from "../views/KeywordView";
+import FormView, { IFormView } from "../views/FormView";
 
 import KeywordModel from "../models/KeywordModel";
-
+import SearchModel from "../models/SearchModel";
 export interface IList {
   keyword: string;
 }
@@ -10,6 +11,7 @@ export default class App {
   selectedTab: string;
   tabView: ITabView;
   keywordView: IKeywordView;
+  formView: IFormView;
 
   constructor() {
     const formViewEl = document.querySelector("form") as HTMLFormElement;
@@ -23,6 +25,10 @@ export default class App {
     const resultViewEl = document.querySelector(
       "#search-result"
     ) as HTMLDivElement;
+
+    this.formView = new FormView(formViewEl)
+      .on("@submit", (e) => this.search(e.detail.input))
+      .on("@reset", () => this.renderView());
 
     this.tabView = new TabView(tabViewEl).on("@change", (e: CustomEvent) => {
       this.onChangeTab(e.detail.tabName);
@@ -38,11 +44,18 @@ export default class App {
   }
 
   async search(query: string) {
-    //
+    // this.formView.setValue()
+
+    const data = await SearchModel.list();
+    this.onSearchResult(data);
   }
 
-  // onSearchResult() {}
-  // onSearchTab() {}
+  onSearchResult(data: IList[]) {
+    // this.tabView.hide();
+    // this.keywordView.hide();
+    // this.historyView.hide();
+    // this.resultView.mount(data);
+  }
 
   onChangeTab(tabName: string) {
     this.selectedTab = tabName;

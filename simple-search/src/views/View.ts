@@ -1,4 +1,15 @@
-export default class View {
+interface IData<T> {
+  [k: string]: T | undefined;
+}
+
+interface IView {
+  on(event: string, handler: (e: CustomEvent) => void): this;
+  emit(event: string, data?: IData<string>): this;
+  hide(): this;
+  show(): this;
+}
+
+export default class View implements IView {
   el: HTMLElement;
   constructor(el: HTMLElement) {
     if (!el) throw el;
@@ -7,12 +18,11 @@ export default class View {
   }
 
   on(event: string, handler: (e: CustomEvent) => void): this {
-    console.log("7");
     this.el.addEventListener(event, handler as EventListener);
     return this;
   }
 
-  emit(event: string, data: any): this {
+  emit(event: string, data?: IData<string>): this {
     const evt = new CustomEvent(event, {
       detail: data,
     });
