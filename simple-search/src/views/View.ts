@@ -2,7 +2,7 @@ interface IData<T> {
   [k: string]: T | undefined;
 }
 
-interface IView {
+export interface IView {
   on(event: string, handler: (e: CustomEvent) => void): this;
   emit(event: string, data?: IData<string>): this;
   hide(): this;

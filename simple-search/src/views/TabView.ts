@@ -1,7 +1,7 @@
-import View from "./View";
+import View, { IView } from "./View";
 import "./TabView.scss";
 
-export interface ITabView {
+export interface ITabView extends IView {
   mount(): void;
   bindEvents(): void;
   onClick(tabName: string): void;
@@ -35,6 +35,7 @@ export default class TabView extends View implements ITabView {
 
   onClick(tabName: string): void {
     this.setActiveTab(tabName);
+    this.emit("@change", { tabName });
   }
 
   setActiveTab(tabName: string): void {

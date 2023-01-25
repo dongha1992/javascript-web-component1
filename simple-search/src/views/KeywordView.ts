@@ -1,8 +1,8 @@
-import View from "./View";
+import View, { IView } from "./View";
 import "./KeywordView.scss";
 import { IList } from "../controllers/App";
 
-export interface IKeywordView {
+export interface IKeywordView extends IView {
   mount(data: IList[]): this;
   getKeywordsHtml(data: IList[]): string;
   _bindClickEvent(): void;

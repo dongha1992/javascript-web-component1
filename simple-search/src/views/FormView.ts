@@ -5,16 +5,16 @@ export interface IFormView {
   bindEvents(): void;
   onKeyup(e: Event): void;
   onClickReset(): void;
-  setValue(): void;
+  setValue(value: string): void;
 }
 
 export default class FormView extends View implements IFormView {
-  _inputEl: HTMLElement | null;
-  _resetEl: HTMLElement | null;
+  _inputEl: HTMLInputElement;
+  _resetEl: HTMLButtonElement;
   constructor(el: HTMLElement) {
     super(el);
-    this._inputEl = el.querySelector("[type=text]");
-    this._resetEl = el.querySelector("[type=reset]");
+    this._inputEl = el.querySelector("[type=text]") as HTMLInputElement;
+    this._resetEl = el.querySelector("[type=reset]") as HTMLButtonElement;
     this.showResetBtn(false);
     this.bindEvents();
 
@@ -48,7 +48,7 @@ export default class FormView extends View implements IFormView {
     this.showResetBtn(false);
   }
 
-  setValue() {
-    //
+  setValue(value = "") {
+    this._inputEl.value = value;
   }
 }
