@@ -119,7 +119,7 @@ import Items from "../src/components/Items";
 class App {
   constructor() {
     const $app = document.querySelector("#app") as HTMLElement;
-    new Items(app);
+    new Items($app);
   }
 }
 
