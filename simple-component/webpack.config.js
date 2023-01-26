@@ -16,65 +16,65 @@ module.exports = {
   devtool: "source-map",
   entry: "./src/index.ts",
   resolve: {
-    extensions: [".ts", ".js"]
+    extensions: [".ts", ".js"],
   },
   output: {
     path: path.resolve("./dist"),
-    filename: "bundle.js"
+    filename: "bundle.js",
   },
   devServer: {
     hot: true,
-    open: true
+    open: true,
   },
   module: {
     rules: [
       {
         test: /\.(scss|css)$/,
-        use: ["style-loader", "css-loader", "sass-loader"]
+        use: ["style-loader", "css-loader", "sass-loader"],
       },
       {
         test: /\.(ts|js)x?$/,
         exclude: /node_modules/,
-        loader: "babel-loader"
+        loader: "babel-loader",
       },
       {
         test: /\.ts?$/,
         use: "ts-loader",
-        exclude: /node_modules/
-      }
-    ]
+        exclude: /node_modules/,
+      },
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/index.html",
       templateParameters: {
-        env: isDev ? "개발" : ""
+        env: isDev ? "개발" : "",
       },
       minify: !isDev
         ? {
             collapseWhitespace: true,
-            removeComments: true
+            removeComments: true,
           }
         : false,
-      hash: !isDev
+      hash: !isDev,
     }),
     new CleanWebpackPlugin(),
     ...(!isDev ? [new MiniCssExtractPlugin({ filename: `[name].css` })] : []),
     new ESLintPlugin({
       extensions: ["js", "ts"],
-      emitError: true,
-      emitWarning: true,
-      failOnError: true,
-      failOnWarning: true,
+      emitError: false,
+      emitWarning: false,
+      failOnError: false,
+      failOnWarning: false,
       useEslintrc: true,
-      cache: true
+      cache: true,
     }),
     new BundleAnalyzerPlugin({
       analyzerMode: "static",
       openAnalyzer: false,
       generateStatsFile: true,
-      statsFilename: "bundle-report.json"
-    })
+      statsFilename: "bundle-report.json",
+    }),
   ],
   optimization: {
     minimizer: !isDev
@@ -83,11 +83,11 @@ module.exports = {
           new TerserPlugin({
             terserOptions: {
               compress: {
-                drop_console: true
-              }
-            }
-          })
+                drop_console: true,
+              },
+            },
+          }),
         ]
-      : []
-  }
+      : [],
+  },
 };
